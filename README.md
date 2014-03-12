@@ -1,3 +1,3 @@
 Dot Files for a Mac
 
-VIMRC : cloned from http://github.com/amix/vimrc
+VIMRC : based on https://github.com/adilansari/vimrc 
