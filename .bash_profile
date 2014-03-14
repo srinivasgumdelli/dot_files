@@ -57,4 +57,4 @@ fi
 
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-
+source ~/.rvm/scripts/rvm
