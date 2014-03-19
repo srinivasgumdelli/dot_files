@@ -10,7 +10,6 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'L9'
 Bundle 'FuzzyFinder'
-" Bundle 'https://github.com/wincent/Command-T.git'
 Bundle 'Syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'tpope/vim-surround'
@@ -21,25 +20,19 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
-
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
 
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
-
 filetype plugin indent on     " required!
 filetype on
-"======Solarized theme============
+
 syntax on
 syntax enable
 let g:solarized_termtrans = 1
 set background=dark
 set t_Co=256
 let g:solarized_termcolors=256
-"colorscheme codeschool 
 
-" ===========sontek.net============
 set foldmethod=indent
 set foldlevel=99
 set nowrap        " don't wrap lines
@@ -76,7 +69,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 autocmd filetype python set expandtab
 autocmd FileType python setlocal textwidth=78
-"autocmd BufWritePost *.py call Flake8()
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
