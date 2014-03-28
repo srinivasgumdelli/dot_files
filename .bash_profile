@@ -59,3 +59,7 @@ export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 source ~/.rvm/scripts/rvm
 set -o vi
+
+if [ -f ~/.git-completion.bash ]; then
+	  . ~/.git-completion.bash
+fi
