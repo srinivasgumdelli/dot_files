@@ -1,14 +1,3 @@
-export GRAILS_OPTS="-XX:MaxPermSize=256m -Xmx512m"
-export MAVEN_OPTS="-XX:MaxPermSize=256m -Xmx1024m -d32"
-export JAVA_OPTS="-Dfile.encoding=UTF-8"
-
-alias mvn2='/usr/local/Cellar/maven/2.2.1/bin/mvn'
-alias mvn3='/usr/local/Cellar/maven/3.0.3/bin/mvn'
-alias java5='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home;export JAVA_HOME'
-alias java6='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home;export JAVA_HOME'
-
-alias enable_jrebel='export MAVEN_OPTS="-XX:MaxPermSize=256m -Xmx1024m -d32 -noverify -javaagent:/Applications/ZeroTurnaround/JRebel/jrebel.jar"'
-
 function set_window_and_tab_title
 {
     local title="$1"
@@ -40,28 +29,39 @@ function parse_git_branch
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \[\1\]/' 
 }
 
+if [ -f ~/.git-completion.bash ]; then
+	  . ~/.git-completion.bash
+fi
 
-#PROMPT_COMMAND='set_window_and_tab_title "${PWD##*/}"'
-PROMPT_COMMAND='DIR=`pwd|sed -e "s!$HOME!~!"`; if [ ${#DIR} -gt 30 ]; then CurDir=${DIR:0:12}...${DIR:${#DIR}-15}; else CurDir=$DIR; fi'
-RED="\[\033[0;31m\]"
-DEFAULT="\[\033[0m\]"
-PS1="[\$CurDir]$RED\$(parse_git_branch)$DEFAULT \$ "
 
 if [[ $PATH != /usr/local/bin* ]]; then
     export PATH=/usr/local/bin:$PATH
 fi
 
-if [[ $PATH != */go/storm* ]]; then
-    export PATH=$PATH:/usr/local/go/storm-0.5.3/bin
-fi
+PROMPT_COMMAND='set_window_and_tab_title "${PWD##*/}"'
+PROMPT_COMMAND='DIR=`pwd|sed -e "s!$HOME!~!"`; if [ ${#DIR} -gt 30 ]; then CurDir=${DIR:0:12}...${DIR:${#DIR}-15}; else CurDir=$DIR; fi'
+RED="\[\033[0;31m\]"
+DEFAULT="\[\033[0m\]"
+PS1="[\$CurDir]$RED\$(parse_git_branch)$DEFAULT \$ "
 
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export MAVEN_OPTS="-XX:MaxPermSize=256m -Xmx1024m -d32"
+export JAVA_OPTS="-Dfile.encoding=UTF-8"
+
+# source rvm scripts
 source ~/.rvm/scripts/rvm
+
+# set vi mode for terminal
 set -o vi
 
-if [ -f ~/.git-completion.bash ]; then
-	  . ~/.git-completion.bash
-fi
-
+# all aliases
+alias pull_rebase="git pull --rebase upstream master"
 alias ll="ls -al"
+alias Repos="cd ~/Repos"
+#  Mac specific stuff - uncomment as necessary
+#alias mvn2='/usr/local/Cellar/maven/2.2.1/bin/mvn'
+#alias mvn3='/usr/local/Cellar/maven/3.0.3/bin/mvn'
+#alias java5='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home;export JAVA_HOME'
+#alias java6='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home;export JAVA_HOME'
+

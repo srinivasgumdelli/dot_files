@@ -22,6 +22,9 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
+Bundle 'pangloss/vim-javascript'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'aquach/vim-http-client'
 
 filetype plugin indent on     " required!
 filetype on
@@ -74,3 +77,5 @@ autocmd FileType python setlocal textwidth=78
 
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
+map <F2> :echo 'Current time is ' . strftime('%c')<CR>
+map <leader>bjson :%!python -m json.tool<CR>
