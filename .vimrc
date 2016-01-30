@@ -22,9 +22,23 @@ Bundle 'Raimondi/delimitMate'
 Bundle 'bling/vim-airline'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
 Bundle 'pangloss/vim-javascript'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'aquach/vim-http-client'
+Bundle 'othree/xml.vim'
+Bundle 'vim-scripts/paredit.vim'
+Bundle 'weavejester/cljfmt'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'vim-scripts/textutil.vim'
+Bundle 'google/vim-maktaba'
+Bundle 'google/vim-codefmt'
+Bundle 'google/vim-glaive'
+Bundle 'google/vim-colorscheme-primary'
+Bundle 'Chiel92/vim-autoformat'
+
+call glaive#Install()
+Glaive codefmt plugin[mappings]
 
 filetype plugin indent on     " required!
 filetype on
@@ -35,7 +49,9 @@ let g:solarized_termtrans = 1
 set background=dark
 set t_Co=256
 let g:solarized_termcolors=256
+colorscheme primary
 
+set autoread      " auto refresh files
 set foldmethod=indent
 set foldlevel=99
 set nowrap        " don't wrap lines
@@ -75,7 +91,41 @@ let g:airline#extensions#tabline#enabled = 1
 autocmd filetype python set expandtab
 autocmd FileType python setlocal textwidth=78
 
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+autocmd filetype crontab setlocal nobackup nowritebackup
+
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 map <C-o> :NERDTreeToggle<CR>
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
 map <leader>bjson :%!python -m json.tool<CR>
+vmap <leader>y :w! /tmp/vitmp<CR>                                                                   
+nmap <leader>p :r! cat /tmp/vitmp<CR>
+nnoremap <silent> <F5> :!clear;python %<CR>
+noremap <F3> :Autoformat<CR>
