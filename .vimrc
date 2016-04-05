@@ -36,6 +36,8 @@ Bundle 'google/vim-codefmt'
 Bundle 'google/vim-glaive'
 Bundle 'google/vim-colorscheme-primary'
 Bundle 'Chiel92/vim-autoformat'
+Bundle 'fatih/vim-go'
+Bundle 'thanthese/Tortoise-Typing'
 
 call glaive#Install()
 Glaive codefmt plugin[mappings]
@@ -83,11 +85,11 @@ set laststatus=2
 set smartindent
 set expandtab
 
+let mapleader = ";"
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:airline#extensions#tabline#enabled = 1
-
 autocmd filetype python set expandtab
 autocmd FileType python setlocal textwidth=78
 
@@ -121,11 +123,16 @@ endfunction
 command! PrettyXML call DoPrettyXML()
 autocmd filetype crontab setlocal nobackup nowritebackup
 
+map <leader>xml :call DoPrettyXML()<CR>
 nnoremap <F6> :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+map <leader>gn :bn<cr>
+map <leader>gp :bp<cr>
+map <leader>gd :bd<cr>  
 map <C-o> :NERDTreeToggle<CR>
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
-map <leader>bjson :%!python -m json.tool<CR>
+map <leader>bj :%!python -m json.tool<CR>
 vmap <leader>y :w! /tmp/vitmp<CR>                                                                   
 nmap <leader>p :r! cat /tmp/vitmp<CR>
 nnoremap <silent> <F5> :!clear;python %<CR>
 noremap <F3> :Autoformat<CR>
+vnoremap // y/<C-R>"<CR>"

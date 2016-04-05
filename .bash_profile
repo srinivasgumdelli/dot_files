@@ -1,3 +1,5 @@
+alias enable_jrebel='export MAVEN_OPTS="-XX:MaxPermSize=256m -Xmx1024m -d32 -noverify -javaagent:/Applications/ZeroTurnaround/JRebel/jrebel.jar"'
+
 function set_window_and_tab_title
 {
     local title="$1"
@@ -29,39 +31,50 @@ function parse_git_branch
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \[\1\]/' 
 }
 
-if [ -f ~/.git-completion.bash ]; then
-	  . ~/.git-completion.bash
-fi
-
-
-if [[ $PATH != /usr/local/bin* ]]; then
-    export PATH=/usr/local/bin:$PATH
-fi
-
-PROMPT_COMMAND='set_window_and_tab_title "${PWD##*/}"'
 PROMPT_COMMAND='DIR=`pwd|sed -e "s!$HOME!~!"`; if [ ${#DIR} -gt 30 ]; then CurDir=${DIR:0:12}...${DIR:${#DIR}-15}; else CurDir=$DIR; fi'
 RED="\[\033[0;31m\]"
 DEFAULT="\[\033[0m\]"
 PS1="[\$CurDir]$RED\$(parse_git_branch)$DEFAULT \$ "
 
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-export MAVEN_OPTS="-XX:MaxPermSize=256m -Xmx1024m -d32"
-export JAVA_OPTS="-Dfile.encoding=UTF-8"
+if [[ $PATH != /usr/local/bin* ]]; then
+    export PATH=/usr/local/bin:$PATH
+fi
 
-# source rvm scripts
+if [[ $PATH != */go/storm* ]]; then
+    export PATH=$PATH:/usr/local/go/storm-0.5.3/bin
+fi
+
+if [ -f ~/.git-completion.bash ]; then
+	  . ~/.git-completion.bash
+fi
+
+# options that may be used
+set -o vi
 source ~/.rvm/scripts/rvm
 
-# set vi mode for terminal
-set -o vi
+# all export vars
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export JAVA_HOME=$(/usr/libexec/java_home) 
+export GOPATH=/Users/gumdelli/go
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$GOROOT/bin
+export PATH=$GOPATH/bin:$PATH
 
 # all aliases
-alias pull_rebase="git pull --rebase upstream master"
 alias ll="ls -al"
 alias Repos="cd ~/Repos"
-#  Mac specific stuff - uncomment as necessary
-#alias mvn2='/usr/local/Cellar/maven/2.2.1/bin/mvn'
-#alias mvn3='/usr/local/Cellar/maven/3.0.3/bin/mvn'
-#alias java5='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home;export JAVA_HOME'
-#alias java6='JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home;export JAVA_HOME'
+alias pull_rebase="git pull --rebase upstream master"
+alias desktop="cd ~/Desktop"
+alias documents="cd ~/Documents"
+alias downloads="cd ~/Downloads"
+alias reload="source ~/.bash_profile"
+alias prettyenv="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
+alias vimrc="vim ~/.vimrc"
+alias bashprofile="vim ~/.bash_profile"
 
+# for thefuck script
+eval "$(thefuck --alias)"
+alias fu="fuck"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
