@@ -69,9 +69,9 @@ alias desktop="cd ~/Desktop"
 alias documents="cd ~/Documents"
 alias downloads="cd ~/Downloads"
 alias reload="source ~/.bash_profile"
-alias prettyenv="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
+alias pretty_env="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
 alias vimrc="vim ~/.vimrc"
-alias bashprofile="vim ~/.bash_profile"
+alias bash_profile="vim ~/.bash_profile"
 
 # for thefuck script
 eval "$(thefuck --alias)"
