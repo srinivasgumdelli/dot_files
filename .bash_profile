@@ -31,6 +31,11 @@ function parse_git_branch
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \[\1\]/' 
 }
 
+function clone
+{
+    git clone $1
+}
+
 PROMPT_COMMAND='DIR=`pwd|sed -e "s!$HOME!~!"`; if [ ${#DIR} -gt 30 ]; then CurDir=${DIR:0:12}...${DIR:${#DIR}-15}; else CurDir=$DIR; fi'
 RED="\[\033[0;31m\]"
 DEFAULT="\[\033[0m\]"
@@ -63,15 +68,17 @@ export PATH=$GOPATH/bin:$PATH
 
 # all aliases
 alias ll="ls -al"
-alias Repos="cd ~/Repos"
+alias repos="cd ~/Repos"
 alias pull_rebase="git pull --rebase upstream master"
 alias desktop="cd ~/Desktop"
 alias documents="cd ~/Documents"
 alias downloads="cd ~/Downloads"
 alias reload="source ~/.bash_profile"
-alias pretty_env="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
+alias prettyenv="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
 alias vimrc="vim ~/.vimrc"
-alias bash_profile="vim ~/.bash_profile"
+alias bashprofile="vim ~/.bash_profile"
+alias clone="git clone"
+alias pyclean='find . -name "*.pyc" -exec rm {} \;'
 
 # for thefuck script
 eval "$(thefuck --alias)"
