@@ -38,6 +38,8 @@ Bundle 'google/vim-colorscheme-primary'
 Bundle 'Chiel92/vim-autoformat'
 Bundle 'fatih/vim-go'
 Bundle 'thanthese/Tortoise-Typing'
+Bundle 'vim-scripts/tinymode.vim'
+Bundle 'ingydotnet/yaml-vim'
 
 call glaive#Install()
 Glaive codefmt plugin[mappings]
@@ -74,6 +76,8 @@ set history=1000         " remember more commands and search history
 set undolevels=1000      " use many muchos levels of undo
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set title                " change the terminal's title
+set titleold=""
+set titlestring=VIM:\ %F 
 set visualbell           " don't beep
 set noerrorbells         " don't beep
 set showcmd
@@ -85,7 +89,7 @@ set laststatus=2
 set smartindent
 set expandtab
 
-let mapleader = ";"
+let mapleader = ";"                 " mapping leader to ; key
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
@@ -130,9 +134,20 @@ map <leader>gp :bp<cr>
 map <leader>gd :bd<cr>  
 map <C-o> :NERDTreeToggle<CR>
 map <F2> :echo 'Current time is ' . strftime('%c')<CR>
-map <leader>bj :%!python -m json.tool<CR>
+map <leader>j :%!python -m json.tool<CR>
+map <leader>s :w !sudo tee %<CR>
 vmap <leader>y :w! /tmp/vitmp<CR>                                                                   
 nmap <leader>p :r! cat /tmp/vitmp<CR>
 nnoremap <silent> <F5> :!clear;python %<CR>
 noremap <F3> :Autoformat<CR>
 vnoremap // y/<C-R>"<CR>"
+noremap <C-n><C-n> :set number!<CR>
+noremap <leader>y "*y<CR>
+noremap <leader>p "*p<CR>
+noremap <leader>w :set wrap!<CR>
+noremap <leader>a ggVG<CR>
+" Clojure key-bindings
+nnoremap <C-e> :Eval<CR>
+nnoremap E :%Eval<CR>
+" search for occurence of an ip
+noremap <leader>ip /\(\d\+\.\)\{3\}\d\{1,3\}<CR>
