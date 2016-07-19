@@ -65,6 +65,7 @@ export GOPATH=/Users/gumdelli/go
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$GOROOT/bin
 export PATH=$GOPATH/bin:$PATH
+export AWS="AKIAIRTS5A644675HT3A"
 
 # all aliases
 alias ll="ls -al"
@@ -77,8 +78,8 @@ alias reload="source ~/.bash_profile"
 alias prettyenv="env | awk -F \":\" '{print|\"$1 sort -n\"}'"
 alias vimrc="vim ~/.vimrc"
 alias bashprofile="vim ~/.bash_profile"
-alias clone="git clone"
 alias pyclean='find . -name "*.pyc" -exec rm {} \;'
+alias vim="/usr/local/Cellar/vim/7.4.1847_1/bin/vim"
 
 # for thefuck script
 eval "$(thefuck --alias)"
